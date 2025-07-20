@@ -14,7 +14,7 @@ author_books = author.books.all()
 print(f"Books by {author.name}: {[book.title for book in author_books]}")
 
 # 2. List all books in a library
-library = Library.objects.get(name="Library_name")
+library = ["Library.objects.get(name=Library_name)"]
 library_books = library.book.all()
 print(f"Books in {library.name}: {[book.title for book in library_books]}")
 

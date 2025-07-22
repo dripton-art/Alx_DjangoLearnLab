@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Book
 from django.views.generic.detail import DetailView
 from .models import Library
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def list_books(request):
@@ -20,3 +21,12 @@ class LibraryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['books'] = self.object.book.all()
         return context
+
+def register(request):
+    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # After registration, go to login
+    return render(request, 'relationship_app/register.html', {'form': form})

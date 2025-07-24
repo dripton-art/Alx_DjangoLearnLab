@@ -7,6 +7,7 @@ from relationship_app.views import admin_view, librarian_view, member_view
 
 
 urlpatterns = [
+    path('', views.book_list, name='home'),
     path('books/', list_books, name='book_list'),
     path('libraries/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
     

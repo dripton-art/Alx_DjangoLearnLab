@@ -41,7 +41,7 @@ def change_book(request, book_id):
     else:
         error = "Both title and author are required."
         return render(request, 'relationship_app/add_book.html', {'error': error})
-    return render(request, 'relationship_app/change_book.html', {'book': book})
+    return render(request, 'relationship_app/edit_book.html', {'book': book})
 
 
 @permission_required('relationship_app.can_delete_book')

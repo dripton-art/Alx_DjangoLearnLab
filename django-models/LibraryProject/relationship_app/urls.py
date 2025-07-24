@@ -19,7 +19,7 @@ urlpatterns = [
     path('member/', member_view.member_view, name='member_view'),
 
     path('add_book/', views.add_book, name= 'add_book'),
-    path('change_book/', views.change_book, name= 'change_book'),
+    path('edit_book/', views.change_book, name= 'change_book'),
     path('delete_book/', views.delete_book, name= 'delete_book'),
 
 ]

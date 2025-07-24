@@ -7,12 +7,13 @@ from relationship_app.views import admin_view, librarian_view, member_view
 
 
 urlpatterns = [
-    path('books/', list_books, name='book_list'),
-    path('libraries/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
-    
+    path('', views.home_redirect, name='home'),
     path('register/', views.register, name='register'),
     path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
     path('logout/', LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
+
+    path('books/', list_books, name='book_list'),
+    path('libraries/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
 
     path('admin/', views.admin_view, name='admin_view'),
     path('librarian/', views.librarian_view, name='librarian_view'),
@@ -21,5 +22,4 @@ urlpatterns = [
     path('add_book/', views.add_book, name= 'add_book'),
     path('edit_book/', views.change_book, name= 'change_book'),
     path('delete_book/', views.delete_book, name= 'delete_book'),
-
 ]

@@ -25,8 +25,11 @@ SECRET_KEY = 'django-insecure-y#+p248!*232(am))(83sp_1b=gyz+!^2)2y6a1$ns0oq7gkf*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.github.dev',
+    'https://localhost:8000',
+]
 
 # Application definition
 
@@ -125,3 +128,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'  # Where to go after login
 LOGOUT_REDIRECT_URL = '/login/'  # Where to go after logout
+

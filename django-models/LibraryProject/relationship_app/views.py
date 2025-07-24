@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book
 from django.views.generic.detail import DetailView
 from .models import Library
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import user_passes_test
-
+from django.contrib.auth.decorators import permission_require
 
 # Create your views here.
 def list_books(request):
@@ -13,6 +13,46 @@ def list_books(request):
       books = Book.objects.all()
       context = {'list_books': books}
       return render(request, 'relationship_app/list_books.html', context)
+
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        author = request.POST.get('author')
+        if title and author:
+            Book.objects.create(title=title, author=author)
+            return redirect('list_books')
+        else:
+            error = "Both title and author are required."
+            return render(request, 'relationship_app/add_book.html', {'error': error})
+    return render(request, 'relationship_app/add_book.html')
+ 
+
+
+@permission_required('relationship_app.can_change_book')
+def change_book(request, book_id):
+     book = get_object_or_404(Book, id=book_id)
+    
+    if request.method == 'POST':
+        book.title = request.POST.get('title')
+        book.author = request.POST.get('author')
+        book.save()
+        return redirect('list_books')
+    else:
+        error = "Both title and author are required."
+        return render(request, 'relationship_app/add_book.html', {'error': error})
+    return render(request, 'relationship_app/change_book.html', {'book': book})
+
+
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, id=book_id)
+    
+    if request.method == 'POST':
+        book.delete()
+        return redirect('list_books')
+    return render(request, 'relationship_app/delete.html', {'book': book})
+
 
 class LibraryDetailView(DetailView):
     """A class-based view for displaying details of a specific book."""  

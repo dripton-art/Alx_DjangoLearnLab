@@ -4,6 +4,8 @@ from django.views.generic.detail import DetailView
 from .models import Library
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.decorators import user_passes_test
+
 
 # Create your views here.
 def list_books(request):
@@ -32,3 +34,12 @@ def register(request):
             login(request, user)
             return redirect('login')  # After registration, go to login
     return render(request, 'relationship_app/register.html', {'form': form})
+
+def is_member(user):
+    return user.is_authenticated and not user.is_staff and not user.is_superuser
+
+def is_librarian(user):
+    return user.groups.filter(name='Librarian').exists()
+
+def is_admin(user):
+    return user.is_superuser

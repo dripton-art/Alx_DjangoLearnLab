@@ -129,3 +129,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'  # Where to go after login
 LOGOUT_REDIRECT_URL = '/login/'  # Where to go after logout
 
+AUTH_USER_MODEL = 'bookshelf.CustomUser'

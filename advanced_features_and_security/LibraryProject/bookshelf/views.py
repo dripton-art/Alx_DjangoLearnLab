@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import permission_required
 from .models import Book
 
 # Create your views here.
+
+# Only users with 'bookshelf.can_view' can access this page
 @permission_required('bookshelf.can_delete_book', raise_exception=True)
 def list_books(request):
       """Retrieves all books and renders a template displaying the list."""
@@ -10,6 +12,7 @@ def list_books(request):
       context = {'list_books': books}
       return render(request, 'bookshelf/list_books.html', context)
 
+# Only users with 'bookshelf.can_create' permission can add books
 @permission_required('bookshelf.can_create_book', raise_exception=True)
 def create_book(request):
     if request.method == 'POST':
@@ -23,6 +26,7 @@ def create_book(request):
             return render(request, 'bookshelf/create_book.html', {'error': error})
     return render(request, 'bookshelf/create_book.html')
 
+# Only users with 'bookshelf.can_edit' can edit books
 @permission_required('bookshelf.can_edit_book', raise_exception=True)
 def edit_book(request, book_id):
      book = get_object_or_404(Book, id=book_id)
@@ -37,6 +41,7 @@ def edit_book(request, book_id):
         return render(request, 'bookshelf/create_book.html', {'error': error})
      return render(request, 'bookshelf/edit_book.html', {'book': book})
 
+# Only users with 'bookshelf.can_delete' can delete books
 @permission_required('bookshelf.can_delete_book', raise_exception=True)
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)

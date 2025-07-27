@@ -9,11 +9,12 @@ class Book(models.Model):
     publication_year = models.IntegerField()
 
     class Meta:
+        # Custom permissions used to control access
         permissions = [
-            ("can_create_book", "Can create book"),
-            ("can_edit_book", "Can edit book"),
-            ("can_view_book", "Can view book"),
-            ("can_delete_book", "Can delete book"),
+            ("can_create_book", "Can create book"), # Used for add_book view
+            ("can_edit_book", "Can edit book"),     # Used for edit_book view
+            ("can_view_book", "Can view book"),     # Used for delete_book view
+            ("can_delete_book", "Can delete book"), # Used for book list view
         ]
 
     def __str__(self):

@@ -6,11 +6,11 @@ from .models import Book
 
 # Only users with 'bookshelf.can_view' can access this page
 @permission_required('bookshelf.can_delete_book', raise_exception=True)
-def list_books(request):
+def book_list(request):
       """Retrieves all books and renders a template displaying the list."""
       books = Book.objects.all()
       context = {'list_books': books}
-      return render(request, 'bookshelf/list_books.html', context)
+      return render(request, 'bookshelf/book_list.html', context)
 
 # Only users with 'bookshelf.can_create' permission can add books
 @permission_required('bookshelf.can_create_book', raise_exception=True)

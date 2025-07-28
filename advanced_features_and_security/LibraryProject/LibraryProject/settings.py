@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-y#+p248!*232(am))(83sp_1b=gyz+!^2)2y6a1$ns0oq7gkf*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
@@ -130,3 +130,23 @@ LOGIN_REDIRECT_URL = '/'  # Where to go after login
 LOGOUT_REDIRECT_URL = '/login/'  # Where to go after logout
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+# Prevent MIME-type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable XSS filtering in the browser
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent clickjacking by disallowing the app to be embedded in an iframe
+X_FRAME_OPTIONS = 'DENY'
+
+# Only send CSRF cookie over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# Only send session cookie over HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Prevents session hijacking
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+

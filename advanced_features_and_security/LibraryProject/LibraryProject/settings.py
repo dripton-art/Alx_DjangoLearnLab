@@ -132,6 +132,11 @@ LOGOUT_REDIRECT_URL = '/login/'  # Where to go after logout
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
 # Prevent MIME-type sniffing
 SECURE_CONTENT_TYPE_NOSNIFF = True
 

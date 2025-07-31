@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-y#+p248!*232(am))(83sp_1b=gyz+!^2)2y6a1$ns0oq7gkf*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'csp.middleware.CSPMiddleware',  
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -130,3 +131,39 @@ LOGIN_REDIRECT_URL = '/'  # Where to go after login
 LOGOUT_REDIRECT_URL = '/login/'  # Where to go after logout
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Trust the X-Forwarded-Proto header from proxies (e.g., Nginx, Heroku)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Prevent MIME-type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable XSS filtering in the browser
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent clickjacking by disallowing the app to be embedded in an iframe
+X_FRAME_OPTIONS = 'DENY'
+
+# Only send CSRF cookie over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# Only send session cookie over HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Prevents session hijacking
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
+# Allow scripts and styles only from your domain and trusted CDNs
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')  # e.g., for CDN JS
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_FONT_SRC = ("'self'", 'https://fonts.gstatic.com')
+CSP_IMG_SRC = ("'self'", 'data:')  # allow inline base64 images if needed
+CSP_CONNECT_SRC = ("'self'",)
+CSP_FRAME_ANCESTORS = ("'none'",)  # block all iframes

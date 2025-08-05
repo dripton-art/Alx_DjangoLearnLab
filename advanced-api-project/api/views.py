@@ -4,13 +4,22 @@ from .models import Book
 from .serializers import BookSerializer
 
 # Create your views here.
-
-# List and Create: GET and POST
-class BookListCreateView(generics.ListCreateAPIView):
+class CustomBookCreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-# Retrieve, Update, Delete: GET by ID, PUT, DELETE
-class BookRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class CustomBookListView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class CustomBookUpdateView(generics.UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class CustomBookDetailView(generics.RetrieveAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class CustomBookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer

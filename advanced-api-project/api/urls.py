@@ -8,9 +8,9 @@ from .views import (
 )
 
 urlpatterns = [
-    path('books/create', BookCreateView.as_view(), name='book-create'),
-    path('books/list', BookListView.as_view(), name='book-list'),
-    path('books/list', BookDetailView.as_view(), name='book-detail'),
-    path('books/update', BookRetrieveView.as_view(), name='book-retrieve'),
-    path('books/delete', BookDestroyView.as_view(), name='book-destroy'),
+    path('books/create', CustomBookCreateView.as_view(), name='book-create'),
+    path('books/', CustomBookListView.as_view(), name='book-list'),
+    path('books/<int:pk>/', CustomBookDetailView.as_view(), name='book-detail'),
+    path('books/<int:pk>/update/', CustomBookUpdateView.as_view(), name='book-update'),
+    path('books/<int:pk>/delete/', CustomBookDeleteView.as_view(), name='book-delete'),
 ]

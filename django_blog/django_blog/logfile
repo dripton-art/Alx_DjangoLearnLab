@@ -1,0 +1,18 @@
+2025-08-13 20:41:18.260 CAT [13047] LOG:  starting PostgreSQL 17.0 on arm-unknown-linux-androideabi, compiled by Android (12470979, +pgo, +bolt, +lto, +mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262), 32-bit
+2025-08-13 20:41:18.271 CAT [13047] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-08-13 20:41:18.275 CAT [13047] LOG:  listening on Unix socket "/data/data/com.termux/files/usr/tmp/.s.PGSQL.5432"
+2025-08-13 20:41:18.297 CAT [13053] LOG:  database system was shut down at 2025-08-13 20:40:09 CAT
+2025-08-13 20:41:18.314 CAT [13047] LOG:  database system is ready to accept connections
+2025-08-13 20:49:32.650 CAT [13051] LOG:  checkpoint starting: time
+2025-08-13 20:51:49.790 CAT [13051] LOG:  checkpoint complete: wrote 974 buffers (5.9%); 0 WAL file(s) added, 0 removed, 0 recycled; write=136.780 s, sync=0.289 s, total=137.141 s; sync files=316, longest=0.002 s, average=0.001 s; distance=4502 kB, estimate=4502 kB; lsn=0/1953278, redo lsn=0/19531E8
+2025-08-13 20:57:38.934 CAT [17150] FATAL:  role "postgres" does not exist
+2025-08-13 20:57:54.182 CAT [17191] FATAL:  role "postgresql" does not exist
+2025-08-13 21:00:14.463 CAT [13051] LOG:  checkpoint starting: time
+2025-08-13 21:00:26.378 CAT [13051] LOG:  checkpoint complete: wrote 118 buffers (0.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=11.778 s, sync=0.085 s, total=11.916 s; sync files=101, longest=0.032 s, average=0.001 s; distance=473 kB, estimate=4099 kB; lsn=0/19C9A20, redo lsn=0/19C9990
+2025-08-13 21:06:18.255 CAT [13051] LOG:  checkpoint starting: time
+2025-08-13 21:06:19.230 CAT [13051] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.914 s, sync=0.008 s, total=0.978 s; sync files=7, longest=0.002 s, average=0.002 s; distance=1 kB, estimate=3690 kB; lsn=0/19C9EB8, redo lsn=0/19C9E60
+2025-08-13 21:06:46.238 CAT [18396] ERROR:  syntax error at or near ""help"" at character 1
+2025-08-13 21:06:46.238 CAT [18396] STATEMENT:  "help"
+	help
+	clear
+	exit;

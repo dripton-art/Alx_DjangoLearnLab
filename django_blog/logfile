@@ -11,3 +11,16 @@
 2025-08-14 02:46:11.942 CAT [5563] LOG:  database system is ready to accept connections
 2025-08-14 02:51:23.915 CAT [5566] LOG:  checkpoint starting: time
 2025-08-14 02:51:26.121 CAT [5566] LOG:  checkpoint complete: wrote 17 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.091 s, sync=0.039 s, total=2.211 s; sync files=11, longest=0.030 s, average=0.004 s; distance=2 kB, estimate=2 kB; lsn=0/19F9580, redo lsn=0/19F9528
+2025-08-14 16:15:26.246 CAT [24801] LOG:  starting PostgreSQL 17.0 on arm-unknown-linux-androideabi, compiled by Android (12470979, +pgo, +bolt, +lto, +mlgo, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262), 32-bit
+2025-08-14 16:15:26.255 CAT [24801] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-08-14 16:15:26.260 CAT [24801] LOG:  listening on Unix socket "/data/data/com.termux/files/usr/tmp/.s.PGSQL.5432"
+2025-08-14 16:15:26.309 CAT [24806] LOG:  database system was interrupted; last known up at 2025-08-14 02:51:26 CAT
+2025-08-14 16:15:26.647 CAT [24806] LOG:  database system was not properly shut down; automatic recovery in progress
+2025-08-14 16:15:26.657 CAT [24806] LOG:  redo starts at 0/19F9528
+2025-08-14 16:15:26.657 CAT [24806] LOG:  invalid record length at 0/19F9630: expected at least 24, got 0
+2025-08-14 16:15:26.657 CAT [24806] LOG:  redo done at 0/19F95F8 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2025-08-14 16:15:26.677 CAT [24804] LOG:  checkpoint starting: end-of-recovery immediate wait
+2025-08-14 16:15:26.701 CAT [24804] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.006 s, sync=0.003 s, total=0.026 s; sync files=2, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/19F9630, redo lsn=0/19F9630
+2025-08-14 16:15:26.714 CAT [24801] LOG:  database system is ready to accept connections
+2025-08-14 16:40:26.293 CAT [24804] LOG:  checkpoint starting: time
+2025-08-14 16:40:34.275 CAT [24804] LOG:  checkpoint complete: wrote 59 buffers (0.4%); 0 WAL file(s) added, 0 removed, 0 recycled; write=7.896 s, sync=0.054 s, total=7.986 s; sync files=52, longest=0.003 s, average=0.002 s; distance=190 kB, estimate=190 kB; lsn=0/1A290F8, redo lsn=0/1A29068

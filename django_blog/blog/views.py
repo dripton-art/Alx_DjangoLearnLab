@@ -6,7 +6,7 @@ from .models import UserProfile
 
 
 def register(request):
-    form = UserCreationForm()
+    form = CustomUserCreationForm()
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():

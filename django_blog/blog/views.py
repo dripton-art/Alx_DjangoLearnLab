@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm
+from .forms import UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.decorators import login_required
+from .models import UserProfile
 
 
 def register(request):
@@ -14,3 +16,20 @@ def register(request):
         form = CustomUserCreationForm()
     return render(request, 'blog/register.html', {'form': form})
 
+@login_required
+def profile(request):
+    profile = request.user.userprofile  # automatically created by signals
+
+    if request.method == "POST":
+        request.user.username = request.POST.get("username")
+        request.user.email = request.POST.get("email")
+        request.user.save()
+
+        profile.bio = request.POST.get("bio")
+        if request.FILES.get("profile_picture"):
+            profile.profile_picture = request.FILES.get("profile_picture")
+        profile.save()
+
+        return redirect("profile")
+
+    return render(request, "profile.html", {"profile": profile})

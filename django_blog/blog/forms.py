@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import Comment
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)  # new field
@@ -17,12 +17,19 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
-class UserUpdateForm(forms.ModelForm):
+   # Comment form and validation
+class CommentForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['username', 'email']
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Write a comment...'}),
+        }
 
-class ProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ['bio', 'profile_picture']
+    def clean_commnent(self):
+        '''custome validation for comment field'''
+
+        content = self.cleaned_data.get('content')
+
+        if len(content) > 2000:
+            raise ValidationError('Your comment is too long')

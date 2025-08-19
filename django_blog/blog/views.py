@@ -7,6 +7,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Comment
 from .forms import CommentForm
+from taggit.models import Tag
+from django.db.models import Q
 
 def register(request):
     form = CustomUserCreationForm()
@@ -127,3 +129,20 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('post_detail', kwargs={'pk': self.object.post.pk})
+
+# Search views for the comments and post
+def search_posts(request):
+    query = request.GET.get('q', '').strip()
+    results = []
+
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)  # works with django-taggit
+        ).distinct()
+
+    return render(request, 'blog/search_results.html', {
+        'query': query,
+        'results': results
+    })

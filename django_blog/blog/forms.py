@@ -1,6 +1,8 @@
 from django import forms, Comment
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Post
+from taggit.forms import TagWidget
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -33,3 +35,10 @@ class CommentForm(forms.ModelForm):
 
         if len(content) > 2000:
             raise ValidationError('Your comment is too long')
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']  # include 'tags'
+        widgets = {
+            'tags': TagWidget(),  # use the custom widget
+        }

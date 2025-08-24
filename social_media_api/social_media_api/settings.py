@@ -143,3 +143,15 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Enable browser XSS protection
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent your site from being embedded in frames (clickjacking protection)
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent the browser from guessing content types
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True

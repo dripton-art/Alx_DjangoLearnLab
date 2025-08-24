@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from rest_framework import generics, viewsets, permissions, filters
+from rest_framework import generics, viewsets, permissions, filters, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .models import Post, Comment
+from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer
 from rest_framework.response import Response
-
+from notifications.models import Notification
 
 # Create your views here.
 
@@ -56,3 +56,27 @@ class FeedView(generics.GenericAPIView):
 
         serializer = self.get_serializer(posts, many=True)
         return Response(serializer.data)
+
+class LikePostView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        post = generics.get_object_or_404(Post, pk=pk)  
+        like, created = Like.objects.get_or_create(user=request.user, post=post)  
+
+        if created:
+            Notification.objects.create(
+                user=post.author,
+                message=f"{request.user.username} liked your post."
+            )  
+            return Response({"detail": "Post liked."}, status=status.HTTP_201_CREATED)
+        return Response({"detail": "Already liked."}, status=status.HTTP_200_OK)
+
+
+class UnlikePostView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        post = generics.get_object_or_404(Post, pk=pk)
+        Like.objects.filter(user=request.user, post=post).delete()
+        return Response({"detail": "Post unliked."}, status=status.HTTP_200_OK)

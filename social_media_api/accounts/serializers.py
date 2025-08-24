@@ -6,7 +6,7 @@ from .models import CustomUser
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ['id', 'username', 'email', 'bio', 'profile_picture', 'followers']
 
 
@@ -14,7 +14,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
+        model = get_user_model()
         fields = ['username', 'email', 'password']
 
     def create(self, validated_data):

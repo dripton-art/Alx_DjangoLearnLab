@@ -1,10 +1,8 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions, filters
+from rest_framework import generics, viewsets, permissions, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
@@ -45,25 +43,16 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def feed(request):
-    """
-    Returns a feed of posts from users the current user follows.
-    Ordered by creation date (most recent first).
-    """
-    user = request.user
-    following_users = user.following.all()  # users the current user follows
-    posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
-    
-    # Minimal representation without serializer
-    feed_data = [
-        {
-            "id": post.id,
-            "author": post.author.username,
-            "content": post.content,
-            "created_at": post.created_at
-        } for post in posts
-    ]
-    
-    return Response(feed_data)
+class FeedView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]  
+    serializer_class = PostSerializer
+
+    def get(self, request):
+        # Get users that the current user follows
+        following_users = request.user.following.all()
+
+        # Get posts from those users, ordered by most recent first
+        posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+
+        serializer = self.get_serializer(posts, many=True)
+        return Response(serializer.data)
